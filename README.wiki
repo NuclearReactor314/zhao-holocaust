@@ -12,7 +12,17 @@
 
 广泛收集各路资料，包括部分亲历者的讲述。
 
-== 早期中共到文革期间的死亡人数统计 ==
+== 早期中共死亡人数统计 ==
 
 [https://github.com/NuclearReactor314/zhao-holocaust/blob/main/1921-1949/1930.wiki 反ab团]
- * 7.6万人
+* 7.6万人
+
+[https://github.com/NuclearReactor314/zhao-holocaust/blob/main/1921-1949/1931.txt 坑口事变+白雀园肃反]
+* 坑口事变：6352人
+* 白雀园肃反：被捕约600人，被判死刑30人，被判各类刑法约百人。
+
+[https://github.com/NuclearReactor314/zhao-holocaust/blob/main/1921-1949/1942.wiki 整风运动]
+* 约1万人
+
+[https://github.com/NuclearReactor314/zhao-holocaust/blob/main/1921-1949/1948.wiki 城工部事件]
+* 127人
