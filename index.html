@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>维尼小熊模拟器</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #1e1e2d;
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    .btn {
+        background-color: white;
+        color: #1e1e2d;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container" id="mainPage">
+    <h1>维尼小熊模拟器</h1>
+    <button class="btn" onclick="startGame()">立刻成为维尼小熊</button>
+</div>
+
+<div class="container" id="instructions" style="display: none;">
+    <h2>说明书</h2>
+    <p>0012sdjoqmd0900</p>
+    <button class="btn" onclick="startGame()">我明白了</button>
+</div>
+
+<div class="container" id="game" style="display: none;">
+    <div>
+        <p>金钱：<span id="money">0</span></p>
+        <p>权威：<span id="authority">0</span></p>
+        <p>政策：<span id="policy">0</span></p>
+        <p>信任：<span id="trust">0</span></p>
+    </div>
+    <div id="question"></div>
+    <div id="options"></div>
+</div>
+
+<div class="container" id="result" style="display: none;">
+    <h2>结算</h2>
+    <p>得分： <span id="score">0</span></p>
+    <p>结论： <span id="conclusion">---</span></p>
+</div>
+
+<script>
+    let money = 0;
+    let authority = 0;
+    let policy = 0;
+    let trust = 0;
+    let currentQuestion = 0;
+
+    const questions = [
+        {
+            question: "有人献忠你该怎么办？",
+            options: [
+                { text: "压热度", money: 0, authority: 2, policy: 0, trust: 1 },
+                { text: "自杀", money: 0, authority: 2, policy: 0, trust: 4 },
+                { text: "嫁祸给美国", money: 0, authority: 2, policy: 2, trust: 3 },
+                { text: "杀几个无辜百姓", money: 2, authority: 2, policy: 1, trust: 1 }
+            ]
+        },
+        {
+            question: "你被绑架了，你会怎么做？",
+            options: [
+                { text: "跳科目三", money: 3, authority: 0, policy: 0, trust: 0 },
+                { text: "叫蔡奇把绑匪全杀了", money: 0, authority: 2, policy: 2, trust: 1 },
+                { text: "献身给绑匪", money: 2, authority: 0, policy: 1, trust: 2 },
+                { text: "被杀", money: 0, authority: 0, policy: 0, trust: 0 }
+            ]
+        },
+         {
+            question: "美国就俄乌战争问题警告你，你会怎么做？",
+            options: [
+                { text: "当面唯唯诺诺，转头对官媒吹牛", money: 1, authority: 1, policy: 3, trust: 2 },
+                { text: "气坏了，立刻下令攻击乌克兰", money: 2, authority: 2, policy: 2, trust: 1 },
+                { text: "非常生气，下令攻击美国", money: 0, authority: 0, policy: 2, trust: 1 },
+                { text: "被杀", money: 0, authority: 0, policy: 0, trust: 0 }
+            ]
+        },    ];
+
+    function startGame() {
+        document.getElementById("mainPage").style.display = "none";
+        document.getElementById("instructions").style.display = "none";
+        document.getElementById("game").style.display = "block";
+        showNextQuestion();
+    }
+
+    function showNextQuestion() {
+        if (currentQuestion < questions.length) {
+            const questionElement = document.getElementById("question");
+            const optionsElement = document.getElementById("options");
+
+            questionElement.innerHTML = questions[currentQuestion].question;
+
+            optionsElement.innerHTML = "";
+            for (let i = 0; i < 4; i++) {
+                const option = document.createElement("button");
+                option.innerText = questions[currentQuestion].options[i].text;
+                option.onclick = () => selectOption(i);
+                optionsElement.appendChild(option);
+            }
+
+            currentQuestion++;
+        } else {
+            showResult();
+        }
+    }
+
+    function selectOption(optionIndex) {
+        const selectedOption = questions[currentQuestion - 1].options[optionIndex];
+        money += selectedOption.money;
+        authority += selectedOption.authority;
+        policy += selectedOption.policy;
+        trust += selectedOption.trust;
+
+        document.getElementById("money").innerText = money;
+        document.getElementById("authority").innerText = authority;
+        document.getElementById("policy").innerText = policy;
+        document.getElementById("trust").innerText = trust;
+
+        showNextQuestion();
+    }
+
+    function showResult() {
+        let score = money + authority + policy + trust;
+        let conclusion = "";
+        if (score >= 20) {
+            conclusion = "你成为了庆丰大帝！";
+        } else {
+            conclusion = "你小学还没有毕业就别想成为博士！";
+        }
+
+        document.getElementById("game").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        document.getElementById("score").innerText = score;
+        document.getElementById("conclusion").innerText = conclusion;
+    }
+</script>
+</body>
+</html>
